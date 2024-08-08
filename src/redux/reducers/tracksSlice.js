@@ -44,11 +44,22 @@ const tracksSlice = createSlice({
     status: 'idle',
     error: null,
     selectedSong: null,
+    selectedColor: '#000000',
+    isPlaying: false,
+    mobMenu: false,
   },
   reducers: {
     setSelectedSong: (state, action) => {
       state.selectedSong = action.payload;
+      state.selectedColor = action.payload.accent || '#000000';
+      state.isPlaying = false;
     },
+    setPlaybackState: (state, action) => {
+      state.isPlaying = action.payload;
+    },
+    setMobMenu: (state, action) => {
+        state.mobMenu = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -61,6 +72,7 @@ const tracksSlice = createSlice({
         
         if (action.payload.length > 0 && !state.selectedSong){
             state.selectedSong = action.payload[0];
+            state.selectedColor = action.payload[0].accent || '#000000';
         }
       })
       .addCase(fetchTracks.rejected, (state, action) => {
@@ -71,5 +83,5 @@ const tracksSlice = createSlice({
 });
 
 
-export const { setSelectedSong } = tracksSlice.actions;
+export const { setSelectedSong, setPlaybackState, setMobMenu } = tracksSlice.actions;
 export default tracksSlice.reducer;

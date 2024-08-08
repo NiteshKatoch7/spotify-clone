@@ -1,8 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import TrackItem from './TrackItem';
-import useFetch from './useFetch';
+import TrackItem from '../TrackItem/TrackItem';
+import { InputContainer, ListContainer } from './ListSidebarStyle';
+import useFetch from '../useFetch';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTracks, setSelectedSong } from '../redux/reducers/tracksSlice';
+import { fetchTracks, setMobMenu, setSelectedSong } from '../../redux/reducers/tracksSlice';
+import search from '../../assets/images/search.svg';
+import ListSidebarLoader from './ListSidebarLoader';
+import { FaTimes } from 'react-icons/fa';
 
 export default function ListSidebar() {
   const [activeTab, setActiveTab] = useState('forYou');
@@ -13,7 +17,7 @@ export default function ListSidebar() {
     : 'https://cms.samespace.com/items/songs';
 
   const dispatch = useDispatch();
-  const { tracks, status, error, selectedSong } = useSelector((state) => state.tracks);
+  const { tracks, status, error, selectedSong, selectedColor, mobMenu } = useSelector((state) => state.tracks);
 
   useEffect(() => {
     dispatch(fetchTracks({ url, activeTab }));
@@ -35,15 +39,19 @@ export default function ListSidebar() {
     dispatch(setSelectedSong(track));
   };
 
+  const handleMenuClose = () => {
+    dispatch(setMobMenu(false));
+  }
+
   return (
-    <div className="w-[25%] p-4">
+    <ListContainer selectedColor={selectedColor} className={`md:w-[50%] lg:w-[25%] p-4 ${ mobMenu ? 'active' : ''}`}>
       <nav className="mb-4">
-        <ul className="flex border-b border-gray-700">
+        <ul className="flex gap-5">
           <li className="mr-1">
             <button
               onClick={() => setActiveTab('forYou')}
-              className={`bg-[#121212] inline-block py-2 px-4 font-semibold ${
-                activeTab === 'forYou' ? 'text-blue-500' : 'text-gray-500 hover:text-gray-300'
+              className={`inline-block py-2 font-semibold ${
+                activeTab === 'forYou' ? 'text-blue-500 active' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
               For You
@@ -52,8 +60,8 @@ export default function ListSidebar() {
           <li className="mr-1">
             <button
               onClick={() => setActiveTab('topTracks')}
-              className={`bg-[#121212] inline-block py-2 px-4 font-semibold ${
-                activeTab === 'topTracks' ? 'text-blue-500' : 'text-gray-500 hover:text-gray-300'
+              className={`inline-block py-2 font-semibold ${
+                activeTab === 'topTracks' ? 'text-blue-500 active' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
               Top Tracks
@@ -61,10 +69,13 @@ export default function ListSidebar() {
           </li>
         </ul>
       </nav>
-      <input value={searchTerm} onChange={handleSearch} type="text" placeholder="Search Song, Artist" className="w-full p-2 rounded bg-gray-800 mb-4" />
+      <InputContainer>
+        <input value={searchTerm} onChange={handleSearch} type="text" placeholder="Search Song, Artist" className="search-input w-full p-2 rounded bg-gray-800" />
+        <img src={search} alt="Spotify" className="w-[32px]" />
+      </InputContainer>
       <div className="tracks-list space-y-1">
         {status === 'loading' ? (
-          <p>Loading...</p>
+          <ListSidebarLoader />
         ) : status === 'failed' ? (
           <p>Error: {error}</p>
         ) : (
@@ -81,6 +92,9 @@ export default function ListSidebar() {
           )
         )}
       </div>
-    </div>
+      <button className="close-btn" onClick={handleMenuClose}>
+        <FaTimes size={20} color="white" />
+      </button>
+    </ListContainer>
   );
 }
