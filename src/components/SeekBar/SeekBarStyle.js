@@ -2,6 +2,7 @@ const { default: styled } = require("styled-components");
 
 export const SeekerWrapper = styled.div`
   position: relative;
+  margin-bottom: 24px;
 
   input{
     width: 100%;

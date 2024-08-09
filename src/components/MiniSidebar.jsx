@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from '../assets/images/Logo.png';
+import dp from '../assets/images/dp.jpg';
 import Profile from '../assets/images/Profile.png';
 
 export default function MiniSidebar() {
@@ -10,7 +11,7 @@ export default function MiniSidebar() {
             <img src={Logo} alt="Spotify" className="w-[130px] mb-6" />
           </div>
           <div className="p-5">
-            <img src={Profile} alt="Spotify" className="w-[48px]" />
+            <img src={dp} alt="Spotify" className="w-[48px] rounded-full" />
           </div>
       </div>
     )
