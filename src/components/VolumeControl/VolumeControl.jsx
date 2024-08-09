@@ -32,7 +32,7 @@ export default function VolumeControl({ audioRef }) {
       if (audioRef.current) {
         audioRef.current.volume = volume / 100;
       }
-    }, [audioRef]);
+    }, [audioRef, volume]);
 
     return (
       <VolumeControllerWrapper>

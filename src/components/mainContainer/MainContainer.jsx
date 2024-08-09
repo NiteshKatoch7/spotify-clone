@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { AudioContainer, ButtonGroup, MainWrapper, PlayerContainer, PlayListBtn, playListBtn } from './MainContainerStyle';
-import { selectAndPlaySong, setMobMenu, setPlaybackState, setSelectedSong } from '../../redux/reducers/tracksSlice';
+import { AudioContainer, ButtonGroup, MainWrapper, PlayerContainer, PlayListBtn } from './MainContainerStyle';
+import { selectAndPlaySong, setMobMenu, setPlaybackState} from '../../redux/reducers/tracksSlice';
 import MainContainerLoader from './MainContainerLoader';
 import FloatingHeader from './FloatingHeader';
 import { FaPause, FaPlay } from 'react-icons/fa';
 import SeekBar from '../SeekBar/SeekBar';
 import VolumeControl from '../VolumeControl/VolumeControl';
-import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsThreeDots} from 'react-icons/bs';
 
 export default function MainContainer() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -38,15 +38,16 @@ export default function MainContainer() {
     };
 
     useEffect(() => {
-      if (audioRef.current) {
-        audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-        audioRef.current.addEventListener('durationchange', handleDurationChange);
+      const audioElement = audioRef.current;
+      if (audioElement) {
+        audioElement.addEventListener('timeupdate', handleTimeUpdate);
+        audioElement.addEventListener('durationchange', handleDurationChange);
       }
   
       return () => {
-        if (audioRef.current) {
-          audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-          audioRef.current.removeEventListener('durationchange', handleDurationChange);
+        if (audioElement) {
+          audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+          audioElement.removeEventListener('durationchange', handleDurationChange);
         }
       };
     }, []);
