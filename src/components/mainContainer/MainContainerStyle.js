@@ -79,6 +79,16 @@ export const PlayerContainer = styled.div`
       transition: all 0.6s ease-in-out;
     }
   }
+
+  .options-btn{
+    border-radius: 100%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 export const PlayListBtn = styled.button`
@@ -101,6 +111,8 @@ export const PlayListBtn = styled.button`
 `;
 
 export const AudioContainer = styled.div`
+  margin-bottom: 20px;
+
   .progress-bar{
     width: 100%;
     height:5px;

@@ -3,7 +3,7 @@ import TrackItem from '../TrackItem/TrackItem';
 import { InputContainer, ListContainer } from './ListSidebarStyle';
 import useFetch from '../useFetch';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTracks, setMobMenu, setSelectedSong } from '../../redux/reducers/tracksSlice';
+import { fetchTracks, selectAndPlaySong, setMobMenu, setSelectedSong } from '../../redux/reducers/tracksSlice';
 import search from '../../assets/images/search.svg';
 import ListSidebarLoader from './ListSidebarLoader';
 import { FaTimes } from 'react-icons/fa';
@@ -36,7 +36,7 @@ export default function ListSidebar() {
   }
 
   const handleTrackSelect = (track) => {
-    dispatch(setSelectedSong(track));
+    dispatch(selectAndPlaySong(track));
   };
 
   const handleMenuClose = () => {

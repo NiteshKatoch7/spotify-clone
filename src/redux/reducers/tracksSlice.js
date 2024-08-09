@@ -47,12 +47,19 @@ const tracksSlice = createSlice({
     selectedColor: '#000000',
     isPlaying: false,
     mobMenu: false,
+    shouldPlayOnSelect: false,
   },
   reducers: {
     setSelectedSong: (state, action) => {
       state.selectedSong = action.payload;
       state.selectedColor = action.payload.accent || '#000000';
-      state.isPlaying = false;
+      state.isPlaying = state.shouldPlayOnSelect;
+      state.shouldPlayOnSelect = false;
+    },
+    selectAndPlaySong: (state, action) => {
+      state.shouldPlayOnSelect = true;
+      state.selectedSong = action.payload;
+      state.selectedColor = action.payload.accent || '#000000';
     },
     setPlaybackState: (state, action) => {
       state.isPlaying = action.payload;
@@ -83,5 +90,5 @@ const tracksSlice = createSlice({
 });
 
 
-export const { setSelectedSong, setPlaybackState, setMobMenu } = tracksSlice.actions;
+export const { setSelectedSong, selectAndPlaySong, setPlaybackState, setMobMenu } = tracksSlice.actions;
 export default tracksSlice.reducer;
