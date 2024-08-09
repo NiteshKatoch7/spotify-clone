@@ -77,7 +77,7 @@ export default function ListSidebar() {
         {status === 'loading' ? (
           <ListSidebarLoader />
         ) : status === 'failed' ? (
-          <p>Error: {error}</p>
+          <p className='px-4'>Error: {error}</p>
         ) : (
           filteredTracks && filteredTracks.length > 0 ? (
             filteredTracks.map((track, index) => 
@@ -88,7 +88,7 @@ export default function ListSidebar() {
               onSelect={() => handleTrackSelect(track)} />
             )
           ) : (
-            <p>No tracks available</p>
+            <p className='px-4'>No tracks available</p>
           )
         )}
       </div>
