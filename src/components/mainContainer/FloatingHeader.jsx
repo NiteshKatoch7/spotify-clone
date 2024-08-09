@@ -10,7 +10,7 @@ export default function FloatingHeader() {
           <img src={Logo} alt="Spotify" className="w-[100px]" />
         </div>
         <div className="py-2">
-          <img src={dp} alt="Spotify" className="w-[48px]" />
+          <img src={dp} alt="Spotify" className="w-[48px] rounded-full" />
         </div>
     </FloatingWrapper>
   )
