@@ -1,7 +1,6 @@
 import React from 'react'
 import Logo from '../assets/images/Logo.png';
 import dp from '../assets/images/dp.jpg';
-import Profile from '../assets/images/Profile.png';
 
 export default function MiniSidebar() {
 
